@@ -11,7 +11,7 @@ Invoke-StegoPunk {
             [Parameter(Mandatory=$True)]
             [string]$ImagepathName = "$null"
             )
-      if ($Mode -like "enc*" and )
+      if ($Mode -like "enc*")
           {
           write-host "Encryption Mode" 
           $request = New-Object System.Net.WebCLient
