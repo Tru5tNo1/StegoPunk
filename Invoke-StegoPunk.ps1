@@ -9,7 +9,7 @@ function Invoke-StegoPunk {
             [string]$Mode,
             [string]$Fileurl,
             [string]$ImageUrl,
-            [string]$ImageName = "$null",
+            [string]$ImageName,
             [ValidateSet(“on”,”off”)]
             [string]$b_UAC
             
