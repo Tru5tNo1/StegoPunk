@@ -1,6 +1,4 @@
-Invoke-StegoPunk {
-                  
-      Param (
+Param (
              [Parameter(Mandatory=$True,Position=1)]
 
             [string]$Mode = "$null",
@@ -10,7 +8,11 @@ Invoke-StegoPunk {
             [string]$ImageUrl = "$null",
             [Parameter(Mandatory=$True)]
             [string]$ImagepathName = "$null"
-            )
+       )
+
+function Invoke-StegoPunk {
+                  
+     
       if ($Mode -like "enc*")
           {
           write-host "Encryption Mode" 
