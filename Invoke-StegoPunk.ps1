@@ -1,7 +1,5 @@
 Param (
-             [Parameter(Mandatory=$True,Position=1)]
-
-            [string]$Mode = "$null",
+             [string]$Mode = "$null",
              [Parameter(Mandatory=$True)]
             [string]$Fileurl = "$null",
              [Parameter(Mandatory=$True)]
