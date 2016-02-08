@@ -13,7 +13,7 @@ Param (
 function Invoke-StegoPunk {
                   
      
-      if ($Mode -like "enc*")
+      if ($Mode -like "encryption")
           {
           write-host "Encryption Mode" 
           $request = New-Object System.Net.WebCLient
@@ -80,7 +80,7 @@ function Invoke-StegoPunk {
           } 
         else
           {
-           if ($Mode -like "dec*")
+           if ($Mode -eq "decryption")
                {
                 write-host "Decryption Mode" 
                }
