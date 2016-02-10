@@ -5,12 +5,12 @@ function Invoke-StegoPunk {
 
    Param (
 
-            [ValidateSet(“encryption”,”decryption”)] 
+            [ValidateSet("encryption","decryption")] 
             [string]$Mode,
             [string]$Fileurl,
             [string]$ImageUrl,
             [string]$ImageName,
-            [ValidateSet(“on”,”off”)]
+            [ValidateSet("on","off")]
             [string]$b_UAC
             
           )  
